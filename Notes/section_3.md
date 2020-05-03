@@ -243,3 +243,63 @@ the current state.
 // ...
 ```
 
+## Using useState Hook for changing state
+
+Since React 16.8, there is a way to manipulate state using React Hooks.
+You can use React Hooks to only work with functional components, but the default path (class-based components) is the 
+accepted standard in most professional settings.
+Hooks is a collection of functions you can use in functional components.
+
+useState allows us to manage state in a functional component.
+**NOTE:** Using setState will overwrite **NOT** merge your state.
+
+React Hooks is about using useX functions. It means you don't need to use class-based components.
+
+```js
+// App.js
+import React, { useState } from 'react';
+import './App.css';
+import Person from './Person/Person';
+
+const App = props => {
+
+    const [ personsState, setPersonsState ] = useState({
+            persons: [
+                {"name": "Max", age: 28},
+                {"name": "Manu", age: 29},
+                {"name": "Stephanie", age: 26},
+            ],
+            otherState: "some other value"
+        });
+
+    const switchNameHander = () => {
+            console.log("Was clicked!");
+            // DON'T DO THIS: this.state.persons[0] = "Maximilian";
+            setPersonsState({
+                persons:
+                    [
+                        {"name": "Maximilian", age: 28},
+                        {"name": "Manu", age: 29},
+                        {"name": "Stephanie", age: 32},
+                    ]
+            } );
+        };
+
+    const [otherState, setOtherState] = useState("some other value");
+
+    console.log(personsState, otherState);
+    return (
+        <div className="App">
+            <h1>Hi, I'm a React App</h1>
+            <p>This is really working!</p>
+            <button onClick={switchNameHander}>Switch Name</button>
+            <Person name={personsState.persons[0].name} age={personsState.persons[0].age}/>
+            <Person name={personsState.persons[1].name} age={personsState.persons[1].age}>My Hobbies: Racing</Person>
+            <Person name={personsState.persons[2].name} age={personsState.persons[2].age}/>
+        </div>
+    )
+
+};
+
+export default App;
+```
