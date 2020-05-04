@@ -354,3 +354,9 @@ const person = (props) => {
 
 export default person;
 ```
+
+## Using Stylesheets
+
+## Two-Way Binding
+
+We want to add an input to the Person component
