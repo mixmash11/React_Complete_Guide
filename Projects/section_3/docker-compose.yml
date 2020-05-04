@@ -3,7 +3,7 @@ version: '3'
 services:
 
   front_end:
-    container_name: section_3_lab
+    container_name: section_3_assignment
     build:
       context: .
       dockerfile: Dockerfile
