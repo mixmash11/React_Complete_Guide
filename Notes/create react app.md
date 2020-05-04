@@ -5,5 +5,3 @@ Use the basic script.
 npx create-react-app my-app
 ```
 Copy in the docker files from the resources folder
-
-Turn into Dockerfile?

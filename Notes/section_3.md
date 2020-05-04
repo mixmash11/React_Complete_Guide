@@ -127,10 +127,12 @@ export default person;
 
 ## Using State
 
+**NOTE:** Using state in too many places can make app behavior unpredictable.
+
 State is an internal property. A class has properties.
 A component (extended from component) has a special property, state. 
 State is managed from **inside** a component.
-Using state in too many places can make app behavior unpredictable.
+
 State is a Javascript object. (state is a reserved word)
 
 We use the state property to render the names and ages of the Person components displayed.
@@ -302,4 +304,53 @@ const App = props => {
 };
 
 export default App;
+```
+
+## Passing methods between Components
+
+We want to use the switchNameHandler when you click a <p> inside a person component.
+
+The method is sent as a prop.
+
+```js
+// App.js
+//...
+
+    switchNameHander = () => {
+        // console.log("Was clicked!");
+        // DON'T DO THIS: this.state.persons[0] = "Maximilian";
+        this.setState({
+            persons:
+                [
+                    {"name": "Maximilian", age: 28},
+                    {"name": "Manu", age: 29},
+                    {"name": "Stephanie", age: 32},
+                ]
+        })
+    };
+
+    // ...
+                <Person
+                    name={this.state.persons[1].name}
+                    age={this.state.persons[1].age}
+                    click={this.switchNameHander}>
+                    My Hobbies: Racing
+                </Person>
+    // ...
+```
+
+```js
+// Person.js
+import React from 'react';
+
+const person = (props) => {
+    return (
+        <div>
+            <p onClick={props.click}>I'm {props.name} and I am {props.age} years old!</p>
+            <p>{props.children}</p>
+        </div>
+    )
+};
+
+export default person;
 ```
