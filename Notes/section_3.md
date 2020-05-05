@@ -316,27 +316,14 @@ The method is sent as a prop.
 // App.js
 //...
 
-    switchNameHander = () => {
-        // console.log("Was clicked!");
-        // DON'T DO THIS: this.state.persons[0] = "Maximilian";
-        this.setState({
-            persons:
-                [
-                    {"name": "Maximilian", age: 28},
-                    {"name": "Manu", age: 29},
-                    {"name": "Stephanie", age: 32},
-                ]
-        })
-    };
-
-    // ...
-                <Person
-                    name={this.state.persons[1].name}
-                    age={this.state.persons[1].age}
-                    click={this.switchNameHander}>
-                    My Hobbies: Racing
-                </Person>
-    // ...
+// ...
+<Person
+    name={this.state.persons[1].name}
+    age={this.state.persons[1].age}
+    click={this.switchNameHander}>
+    My Hobbies: Racing
+</Person>
+// ...
 ```
 
 ```js
@@ -355,8 +342,147 @@ const person = (props) => {
 export default person;
 ```
 
-## Using Stylesheets
-
 ## Two-Way Binding
 
 We want to add an input to the Person component
+
+We create an event in the app.js which changes the state, which we link to an input we have in the Person component.
+We also want the name to display the current state at the start. (This is the **two-way** binding).
+
+(If you look in the console, the first and third Person components will raise a console error and text is not changeable 
+because we didn't pass the logic to those two entries)
+
+```js
+// App.js
+import React, {Component} from 'react';
+import './App.css';
+import Person from './Person/Person';
+
+class App extends Component {
+    // ...
+
+    nameChangedHandler = (event) => {
+        this.setState({
+            persons:
+                [
+                    {"name": "Maximilian", age: 28},
+                    {"name": event.target.value, age: 29},
+                    {"name": "Stephanie", age: 26},
+                ]
+        })
+    };
+
+    render() {
+        return (
+            <div className="App">
+                // ...
+                <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
+                <Person
+                    name={this.state.persons[1].name}
+                    age={this.state.persons[1].age}
+                    click={this.switchNameHander}
+                    changed={this.nameChangedHandler}>
+                    My Hobbies: Racing
+                </Person>
+                <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
+            </div>
+        )
+    }
+
+}
+
+// ...
+```
+
+```js
+// Person.js
+import React from 'react';
+
+const person = (props) => {
+    return (
+        <div>
+            <p onClick={props.click}>I'm {props.name} and I am {props.age} years old!</p>
+            <p>{props.children}</p>
+            <input type="text" onChange={props.changed} value={props.name}/>
+        </div>
+    )
+};
+
+export default person;
+```
+
+## Using Stylesheets
+
+We are adding a stylesheet to the Person component (src/Person/Person.css)
+We simply need to import the css file
+
+```css
+/*Person.css*/
+.Person {
+    width: 60%;
+    margin: auto;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px #ccc;
+    padding: 16px;
+    text-align: center;
+}
+```
+
+```js
+// Person.js
+import React from "react";
+import "./Person.css";
+
+const person = (props) => {
+    return (
+        <div className="Person">
+            <p onClick={props.click}>I'm {props.name} and I am {props.age} years old!</p>
+            <p>{props.children}</p>
+            <input type="text" onChange={props.changed} value={props.name}/>
+        </div>
+    )
+};
+
+export default person;
+```
+
+## Using Inline-Styling
+
+We want to add styling to the button.
+Instead of using CSS, we are adding style directly to the app.js (in the render section)
+(We use the name style, but the name is not a keyword, simply a variable)
+
+**NOTE:** Instead of css-style property-name, the properties are camel-case, like propertyName.
+**NOTE:** All property values must be strings (It is JS)
+
+```js
+// App.js
+// ...
+
+class App extends Component {
+    // ...
+
+    render() {
+        const style = {
+            backgroundColor: "white",
+            font: "inherit",
+            border: "1px solid blue",
+            padding: "8px",
+            cursor: "pointer",
+        };
+        return (
+            <div className="App">
+                // ...
+                <button
+                    style={style}
+                    onClick={this.switchNameHander}>Switch Name</button>
+                // ...
+            </div>
+        )
+    }
+
+}
+
+export default App;
+
+```
