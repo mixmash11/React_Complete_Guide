@@ -8,7 +8,7 @@ const userInput = (props) => {
         <div className="UserInput">
             <label htmlFor="rename">Rename Your Hero:</label>
             <br/>
-            <input type="text" value="Mack" name="rename"/>
+            <input type="text" value={props.name} onChange={props.rename_event} name="rename"/>
         </div>
     )
 };

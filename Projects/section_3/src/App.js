@@ -6,37 +6,40 @@ import UserInput from "./UserInput/UserInput"
 import UserOutput from "./UserOutput/UserOutput"
 
 class App extends Component {
+    state = {
+        heroes: [
+            "Macaroon",
+            "Sauerkraut",
+            "Pasta"
+        ]
+    };
 
+    renameHeroHandler = (event) => {
+        this.setState({
+            heroes: [
+                event.target.value,
+                "Sauerkraut",
+                "Pasta"
+            ]
+        });
+    };
 
     render() {
-
-        const style_1 = {
-            backgroundColor: "eee",
-        };
-
-        const style_2 = {
-            backgroundColor: "red",
-        };
-
-        const style_3 = {
-            backgroundColor: "blue",
-        };
-
-        const style_4 = {
-            backgroundColor: "purple",
-        };
 
         return (
             <div className="App">
                 <h1>The Heroes</h1>
-                <div style={style_1}>
-                    <UserInput/>
-                </div>
-
+                <UserInput
+                    name={this.state.heroes[0]}
+                    rename_event={this.renameHeroHandler}
+                />
                 <br/>
-                <UserOutput style={style_2}/>
-                <UserOutput style={style_3}/>
-                <UserOutput style={style_4}/>
+                <UserOutput name={this.state.heroes[0]}
+                            skill="sweetness"/>
+                <UserOutput name={this.state.heroes[1]}
+                            skill="deftness"/>
+                <UserOutput name={this.state.heroes[2]}
+                            skill="tastiness"/>
             </div>
         )
     }

@@ -11,11 +11,9 @@ const userOutput = (props) => {
     return (
         <div className="UserOutput" style={style}>
             <h3>Name</h3>
-            <p>Bill</p>
-            {/*<p>{props.name}</p>*/}
+            <p>{props.name}</p>
             <h4>Skill</h4>
-            <p>Hiking</p>
-            {/*<p>{props.skill}</p>*/}
+            <p>{props.skill}</p>
         </div>
     )
 };
